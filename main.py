@@ -25,31 +25,40 @@ class State(TypedDict):
 
 
 def google_search(state: State):
-    return
+    user_question = state.get("user_question", "")
+    print(f"Searching Google for: {user_question}")
+    google_results = []
+    return {"google_results": google_results}
 
 def bing_search(state: State):
-    return
+    user_question = state.get("user_question", "")
+    print(f"Searching Bing for: {user_question}")
+    bing_results = []
+    return {"bing_results": bing_results}
 
 def reddit_search(state: State):
-    return
+    user_question = state.get("user_question", "")
+    print(f"Searching Reddit for: {user_question}")
+    reddit_results = []
+    return {"reddit_results": reddit_results}
 
 def analyze_reddit_posts(state: State):
-    return
+    return {"selected_reddit_urls": []}
 
 def retrieve_reddit_post(state: State):
-    return
+    return {"reddit_post_data": []}
 
 def analyze_google_results(state: State):
-    return
+    return {"google_analysis": ""}
 
 def analyze_bing_results(state: State):
-    return
+    return {"bing_analysis": ""}
 
 def analyze_reddit_results(state: State):
-    return
+    return {"reddit_analysis": ""}
 
 def synthesize_analysis(state: State):
-    return
+    return {"final_answer": ""}
 
 graph_builder = StateGraph(State)
 
@@ -88,7 +97,7 @@ graph = graph_builder.compile()
 
 def run_chatbot():
     print("Multi-Research AI Agent")
-    print("Type 'exit to quit\n'")
+    print("Type 'exit' to quit\n")
 
     while True:
         user_input = input("Ask me anything: ")
@@ -110,8 +119,8 @@ def run_chatbot():
             "final_answer": None
         }
 
-        print("\n Starting parallel research...\n")
-        print("Launchuing all research nodes...\n")
+        print("\nStarting parallel research...\n")
+        print("Launching all research nodes...\n")
         final_state = graph.invoke(state)
 
         if final_state.get("final_answer"):
